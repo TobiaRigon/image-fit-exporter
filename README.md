@@ -11,6 +11,9 @@ Python script to process images from a folder and export them as `1920x1080` PNG
 - Keeps empty areas transparent by default
 - Optional solid background color (`--bg-color`)
 - Optional custom output size (`--size`)
+- Optional resize mode (`--resize-mode`: `fit` or `cover`)
+- Optional recursive processing (`--recursive`) keeping subfolder structure
+- Optional output format and quality (`--format`, `--quality`)
 - Optional side-by-side mode for vertical images
 
 ## Requirements
@@ -47,6 +50,22 @@ py process_images.py "C:\path\to\input_folder"
   Custom output size in `WIDTHxHEIGHT` format.  
   Default: `1920x1080`  
   Example: `--size 2560x1440`
+
+- `--recursive`  
+  Processes subfolders recursively and preserves folder structure in output.
+
+- `--resize-mode`  
+  Resize behavior: `fit` (default) or `cover`.  
+  `fit` keeps the whole image visible (with empty areas).  
+  `cover` fills the full canvas and crops overflowing parts from center.
+
+- `--format`  
+  Output format: `png`, `jpg`/`jpeg`, `webp`.  
+  Default: `png`
+
+- `--quality`  
+  Quality for `jpg`/`webp` output (`1-100`).  
+  Default: `92`
 
 - `--side-by-side-vertical`  
   Pairs vertical images in the same output image, using as many columns as fit
@@ -89,4 +108,16 @@ Custom size + dynamic side-by-side:
 
 ```bash
 py process_images.py "C:\Users\you\Desktop\MyImages" --size 2560x1080 --side-by-side-vertical
+```
+
+Recursive + JPEG:
+
+```bash
+py process_images.py "C:\Users\you\Desktop\MyImages" --recursive --format jpg --quality 90 --bg-color "#111111"
+```
+
+Cover mode:
+
+```bash
+py process_images.py "C:\Users\you\Desktop\MyImages" --resize-mode cover --size 1920x1080
 ```
